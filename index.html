@@ -65,11 +65,22 @@
 			</div>
 		</div>
 		<script>
+
+			setInterval(time, 1000);
+
 			function time() {
 				var date = new Date();
 				var hour =   Math.round(date.getHours() * 4.167);
 				var minute = Math.round(date.getMinutes() * 1.67);
 				var second = Math.round(date.getSeconds() * 1.67);
+
+				document.getElementById("h").style.top = hour + '%';
+				document.getElementById("m").style.top = minute + '%';
+				document.getElementById("s").style.top = second + '%';
+
+				document.getElementById("h").innerHTML = '<span>' + date.getHours() + '</span>';
+				document.getElementById("m").innerHTML = '<span>' + date.getMinutes() + '</span>';
+				document.getElementById("s").innerHTML = '<span>' + date.getSeconds() + '</span>';
 			}
 		</script>
 	</body>
