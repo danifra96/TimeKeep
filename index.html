@@ -53,9 +53,30 @@
 				left: 66.66%;
 				top: auto;
 			}
+
+			/* BG */
+
+			#bg {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0; left: 0;
+				transition: all .25s;
+			}
+
+			#bg #bglower {
+				width: 100%;
+				height: 33.33%;
+				position: absolute;
+				bottom: 0; left: 0;
+				transition: all .25s;
+			}
 		</style>
 	</head>
 	<body>
+		<div id="bg">
+			<div id="bglower"></div>
+		</div>
 		<div class="container">
 			<div 	   id="h" class="line">
 			</div><div id="m" class="line">
@@ -78,7 +99,27 @@
 				document.getElementById("h").innerHTML = '<span>' + date.getHours() + '</span>';
 				document.getElementById("m").innerHTML = '<span>' + date.getMinutes() + '</span>';
 				document.getElementById("s").innerHTML = '<span>' + date.getSeconds() + '</span>';
+				
+				/* Sunrise */
+				if 		(hour >= 5 && hour <= 8) {
+					document.getElementById("bg").style.background = "red";
+					document.getElementById("bg").style.background = "red";
+				} /* Day */ 
+				else if (hour >= 8 && hour <= 18) {
+					document.getElementById("bg").style.background = "LightBlue";
+					document.getElementById("bg").style.background = "LightBlue";
+				} /* Sunset */ 
+				else if (hour >= 18 && hour <= 21) {
+					document.getElementById("bg").style.background = "orange";
+					document.getElementById("bg").style.background = "orange";
+				} /* Night */ 
+				else if (hour >= 21 && hour <= 23) {
+					document.getElementById("bg").style.background = "blue";
+					document.getElementById("bg").style.background = "blue";
+				} 
+
 			}
+
 		</script>
 	</body>
 </html>
