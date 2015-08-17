@@ -1,7 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
 	<head>
 		<meta charset="UTF-8">
+		<meta name="author" content="Daniel Svetoni">
+		<meta name="description" content="TimeKeep -  Simple clock done completely in HTML, CSS and JavaScript">
+		<meta name="keywords" content="HTML, CSS, JavaScript, Clock, TimeKeep, Time, Online Clock">
+
+		<meta property="og:title" content="TimeKeep Clock"/>
+		<meta property="og:type" content="website"/>
+		<meta property="og:url" content="http://www.timekeep.co.nf"/>
+		<meta property="og:image" content="http://www.timekeep.co.nf/logo_colored.png"/>
+
 		<title>TimeKeep</title>
 		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900' rel='stylesheet' type='text/css'>
 		<style>
@@ -93,6 +102,30 @@
 				background: #FFC107;
 				box-shadow: 0 0 20px rgba(255,193,7,.7);
 			}
+
+			.copyright {
+				position: absolute;
+				bottom: 20px;
+				line-height: 20px;
+				right: 20px;
+				text-align: right;
+				font-size: 12px;
+				color: rgba(255,255,255,.2);
+				z-index: 3;
+				font-family: 'Source Sans Pro', sans-serif;
+			}
+			.copyright img {
+				width: 100px;
+				opacity: .1;
+			}
+			.copyright p {
+				margin: 0;
+			}
+			.copyright a  {
+				font-weight: bold;
+				color: rgba(255,255,255,.4);
+				text-decoration: none;
+			}
 		</style>
 	</head>
 	<body>
@@ -106,6 +139,11 @@
 		<div id="sky">
 			<div class="moon"></div>
 			<div class="sun"></div>
+		</div>
+		<div class="copyright">
+			<img src="logo.png" alt="TimeKeep Logo">
+			<p>By <a href="http://www.testds.co.nf/" target="_blank">Daniel Svetoni</a></p>
+			<p>Copyright ® 2015 - v1.0</p>
 		</div>
 		<script>
 			setInterval(time, 1000);
