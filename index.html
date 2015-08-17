@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>TimeKeep | Time</title>
+		<title>TimeKeep</title>
 		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900' rel='stylesheet' type='text/css'>
 		<style>
 			* {box-sizing: border-box;}
@@ -16,28 +16,30 @@
 			.container{
 				height: 96%;
 				position: relative;
+				z-index: 3;
 			}
 
 			.line {
 				width: 33.33%;
-				height: 4%;
+				height: 30px;
 				display: inline-block;
 				position: absolute;
+				font-size: 48px;
+				line-height: .4;
+				vertical-align: middle;
+				box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 				transition: all .5s;
+				color: #222;
 			}
 			.line span {
 				width: 100%;
 				display: inline-block;
 				text-align: center;
-				color: #222;
-				background: transparent;
-				padding-right: 5px;
-				font-size: 55px;
-				line-height: 50%;
+				vertical-align: middle;
 				font-weight: 900;
 			}
 			#h {
-				background: #CDDC39;
+				background: #4CAF50;
 				left: 0;
 				top: auto;
 			}
@@ -47,7 +49,7 @@
 				top: auto;
 			}
 			#s {
-				background: #4CAF50;
+				background: #CDDC39;
 				left: 66.66%;
 				top: auto;
 			}
@@ -59,90 +61,122 @@
 				height: 100%;
 				position: absolute;
 				top: 0; left: 0;
-				transition: all .25s;
+				z-index: 1;
 			}
 
-			#bg #bglower {
+			#sky {
+				width: 150px;
+				height: 200%;
+				margin: 3% auto;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				z-index: 2;
+			}
+
+			.moon {
 				width: 100%;
-				height: 45%;
+				height: 150px;
+				display: block;
+				border-radius: 100%;
 				position: absolute;
-				bottom: 0; left: 0;
-				transition: all .25s;
+				background: #CFD8DC;
+				box-shadow: 0 0 20px rgba(255,255,255,.4);
+			}
+
+			.sun {
+				width: 100%;
+				height: 150px;
+				display: block;
+				border-radius: 100%;
+				position: absolute;
+				right: 0; bottom: 0;
+				background: #FFC107;
+				box-shadow: 0 0 20px rgba(255,193,7,.7);
 			}
 		</style>
 	</head>
 	<body>
-		<div id="bg">
-			<div id="bglower"></div>
-		</div>
 		<div class="container">
 			<div 	   id="h" class="line">
 			</div><div id="m" class="line">
 			</div><div id="s" class="line">
 			</div>
 		</div>
+		<div id="bg"></div>
+		<div id="sky">
+			<div class="moon"></div>
+			<div class="sun"></div>
+		</div>
 		<script>
 			setInterval(time, 1000);
 
 			function time() {
 				var date = new Date();
-				if (date.getHours() > 0) {
-					var hour = (date.getHours() - 1 ) * 4.167
-				} else {
-					var hour = (date.getHours() + 24 * 4.167) + 0.1
+				var hour = date.getHours();
+
+				/*
+					Clock hands moving
+				*/
+				if (date.getHours() < 23) {
+					var hourPos = date.getHours() * 4.167
+				} else if (date.getHours() >= 23) {
+					var hourPos = ((date.getHours() + 1) * 4.167) + 0.2
 				}
-				if (date.getMinutes() > 0) {
-					var minute = (date.getMinutes() - 1 ) * 1.6666666666666666666666666666667
-				} else {
-					var minute = (date.getMinutes() + 60 * 1.6666666666666666666666666666667) + 0.1
+				if (date.getMinutes() < 59) {
+					var minutePos = date.getMinutes() * 1.6666666666666666666666666666667
+				} else if (date.getMinutes() >= 59) {
+					var minutePos = ((date.getMinutes() + 1) * 1.6666666666666666666666666666667)  + 0.2
 				};
-				if (date.getSeconds() > 0) {
-					var second = (date.getSeconds() - 1 ) * 1.6666666666666666666666666666667
-				} else {
-					var second = (date.getSeconds() + 60 * 1.6666666666666666666666666666667) + 0.1
+				if (date.getSeconds() < 59) {
+					var secondPos = date.getSeconds() * 1.6666666666666666666666666666667
+				} else if (date.getSeconds() >= 59) {
+					var secondPos = ((date.getSeconds() + 1) * 1.6666666666666666666666666666667)  + 0.2
 				};
 
-				document.getElementById("h").style.top = hour + '%';
-				document.getElementById("m").style.top = minute + '%';
-				document.getElementById("s").style.top = second + '%';
+				document.getElementById("h").style.top = hourPos + '%';
+				document.getElementById("m").style.top = minutePos + '%';
+				document.getElementById("s").style.top = secondPos + '%';
 
+				/*
+					Time displaying
+				*/
 				if (date.getHours() > 0) {
 					document.getElementById("h").innerHTML = '<span>' + date.getHours() + '</span>';
 				} else {
-					document.getElementById("h").innerHTML = '<span>' + 24 + '</span>';
+					document.getElementById("h").innerHTML = '<span>' + 0 + 0 + '</span>';
 				};
 				if (date.getMinutes() > 0) {
 					document.getElementById("m").innerHTML = '<span>' + date.getMinutes() + '</span>';
 				} else {
-					document.getElementById("h").innerHTML = '<span>' + 60 + '</span>';
+					document.getElementById("m").innerHTML = '<span>' + 0 + 0 + '</span>';
 				};
 				if (date.getSeconds() > 0) {
 					document.getElementById("s").innerHTML = '<span>' + date.getSeconds() + '</span>';
 				} else {
-					document.getElementById("s").innerHTML = '<span>' + 60 + '</span>'
+					document.getElementById("s").innerHTML = '<span>' + 0 + 0 + '</span>'
 				}
 
-				/* Sunrise */
-				if 		(hour >= 5) {
-					document.getElementById("bg").style.background = "red";
-					document.getElementById("bglower").style.background = "orange";
+				/* 
+					Sky color changing 
+					Day 06 to 20, Night 22 to 04
+					Day #2196F3,  Night #1A237E 
+				*/
+				if ( hour >= 6 && hour < 18) {
+					document.getElementById("bg").style.background = '#2196F3';
+				} else if ( hour >= 18 && hour < 21) {
+					document.getElementById("bg").style.background = '#1976D2';
+				} else if ( hour >= 21) {
+					document.getElementById("bg").style.background = '#1A237E';
+				} else if ( hour >= 0 && hour < 4) {
+					document.getElementById("bg").style.background = '#1A237E';
 				}
+
+				/*
+					Sun and Moon Rotating
+				*/
+				var SMRot = date.getHours() * 15;
+				document.getElementById("sky").style.transform = 'rotate(' + SMRot + 'deg)';
 			}
 		</script>
-		<!-- <script>
-			 /* Day */ 
-				else if (hour >= 8 && hour <= 18) {
-					document.getElementById("bg").style.background = "LightBlue";
-					document.getElementById("bg").style.background = "LightBlue";
-				} /* Sunset */ 
-				else if (hour >= 18 && hour <= 21) {
-					document.getElementById("bg").style.background = "orange";
-					document.getElementById("bg").style.background = "orange";
-				} /* Night */ 
-				else if (hour >= 21 && hour <= 23) {
-					document.getElementById("bg").style.background = "blue";
-					document.getElementById("bg").style.background = "blue";
-				}
-		</script> -->
 	</body>
 </html>
